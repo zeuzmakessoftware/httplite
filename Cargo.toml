@@ -1,0 +1,15 @@
+[package]
+name = "httplite"
+version = "0.1.0"
+authors = ["Joseph Karam <aodude@icloud.com>"]
+description = """
+A super lightweight HTTP server written in Rust, made to resemble the functionality of the "NET/HTTP" module in Go.
+"""
+repository = "https://github.com/zeuzmakessoftware/httplite"
+readme = "README.md"
+keywords = ["httplite", "web", "lightweight", "http"]
+license = "Apache-2.0"
+categories = ["web-programming"]
+edition = "2021"
+
+[dependencies]
