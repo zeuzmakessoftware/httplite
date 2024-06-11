@@ -1,5 +1,5 @@
 # httplite
-A super lightweight HTTP server written in Rust, made to resemble the functionality of the "NET/HTTP" module in Go.
+A super lightweight HTTP server written in Rust, made to resemble the functionality of the "NET/HTTP" module in Go. Still in early access and working on docs.
 
 # Installing httplite
 Include this is your Cargo.toml in your project.
