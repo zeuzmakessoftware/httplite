@@ -5,7 +5,7 @@ A super lightweight HTTP server written in Rust, made to resemble the functional
 Include this is your Cargo.toml in your project.
 `
 [dependencies]
-httplite = "0.1.1"
+httplite = "0.1.2"
 `
 
 # Basic examples
@@ -47,5 +47,5 @@ fn json_server(mut w: ResponseWriter, r: Request) {
 ```
 
 # Latest Notable Updates
-0.1.1
+0.1.2
 Added the ability to host hashmaps as serialized json on an endpoint.
