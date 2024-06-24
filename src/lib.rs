@@ -78,6 +78,7 @@ impl Request {
         request_line.split_whitespace().nth(1).unwrap_or("/")
     }
 
+    #[allow(dead_code)]
     pub fn method(&self) -> &str {
         let request_line = self.raw.lines().next().unwrap_or_default();
         request_line.split_whitespace().next().unwrap_or("GET")
@@ -105,5 +106,82 @@ impl ResponseWriter {
             text
         );
         self.write(&response)
+    }
+
+    pub fn print_hashmap_to_json<K, V>(&mut self, hashmap: &HashMap<K, V>) -> std::io::Result<()>
+    where
+        K: ToString,
+        V: ToJson,
+    {
+        let mut json = String::from("{");
+        for (key, value) in hashmap {
+            json.push_str(&format!("\"{}\":{},", key.to_string(), value.to_json()));
+        }
+        json.pop();
+        json.push('}');
+
+        let response = format!(
+            "HTTP/1.1 200 OK\r\nContent-Type: application/json\r\n\r\n{}",
+            json
+        );
+        self.write(&response)
+    }
+}
+
+pub trait ToJson {
+    fn to_json(&self) -> String;
+}
+
+impl ToJson for String {
+    fn to_json(&self) -> String {
+        format!("\"{}\"", self)
+    }
+}
+
+impl ToJson for &str {
+    fn to_json(&self) -> String {
+        format!("\"{}\"", self)
+    }
+}
+
+impl ToJson for i32 {
+    fn to_json(&self) -> String {
+        self.to_string()
+    }
+}
+
+impl<T: ToJson> ToJson for Vec<T> {
+    fn to_json(&self) -> String {
+        let mut json = String::from("[");
+        for item in self {
+            json.push_str(&format!("{},", item.to_json()));
+        }
+        json.pop();
+        json.push(']');
+        json
+    }
+}
+
+impl<T: ToJson, const N: usize> ToJson for [T; N] {
+    fn to_json(&self) -> String {
+        let mut json = String::from("[");
+        for item in self {
+            json.push_str(&format!("{},", item.to_json()));
+        }
+        json.pop();
+        json.push(']');
+        json
+    }
+}
+
+impl<K: ToJson, V: ToJson> ToJson for HashMap<K, V> {
+    fn to_json(&self) -> String {
+        let mut json = String::from("{");
+        for (key, value) in self {
+            json.push_str(&format!("\"{}\":{},", key.to_json(), value.to_json()));
+        }
+        json.pop();
+        json.push('}');
+        json
     }
 }
