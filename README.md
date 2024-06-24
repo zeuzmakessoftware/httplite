@@ -5,7 +5,7 @@ A super lightweight HTTP server written in Rust, made to resemble the functional
 Include this is your Cargo.toml in your project.
 `
 [dependencies]
-httplite = "0.1.2"
+httplite = "0.1.3"
 `
 
 # Basic examples
@@ -38,14 +38,14 @@ fn main() {
     port.listen().unwrap();
 }
 
-fn json_server(mut w: ResponseWriter, r: Request) {
+fn json_server(mut w: ResponseWriter, _r: Request) {
     let mut map = HashMap::new();
-    map.insert("JSON Thing".to_string(), "This is a thing");
-    map.insert("Another JSON Thing".to_string(), "This is another thing");
+    map.insert("JSON Thing", "This is a thing");
+    map.insert("Another JSON Thing", "This is another thing");
     w.print_hashmap_to_json(&map).unwrap();
 }
 ```
 
 # Latest Notable Updates
-0.1.2
+0.1.3
 Added the ability to host hashmaps as serialized json on an endpoint.

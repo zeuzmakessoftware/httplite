@@ -1,6 +1,6 @@
 [package]
 name = "httplite"
-version = "0.1.2"
+version = "0.1.3"
 authors = ["Joseph Karam <aodude@icloud.com>"]
 description = """
 A super lightweight HTTP server written in Rust, made to resemble the functionality of the "NET/HTTP" module in Go.
